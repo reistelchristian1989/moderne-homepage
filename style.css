@@ -159,11 +159,11 @@ button:hover {
 
 .logo-icon {
 
-    width: 50px;
+    width: 70px;
 
-    height: 50px;
+    height: 70px;
 
-    border-radius: 100%;
+    border-radius: 50%;
 }
 
 .logo:hover {
@@ -304,6 +304,36 @@ nav {
 .project-card:hover {
 
     transform: translateY(-10px);
+
+    box-shadow:
+        0 0 20px #3ef311,
+        0 0 40px #3ef311;
+}
+
+.project-card a {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 10px 20px;
+
+    background-color: #e70e0e;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.project-card a:hover {
+
+    transform: scale(1.05);
+
+    background-color: #2563eb;
 }
 
 .back-button {
