@@ -283,5 +283,12 @@ nav {
 
     text-decoration: none;
 
-    border
+    border-radius: 10px;
+
+    transition: 0.3s;
+}
+
+.back-button:hover {
+
+    transform: scale(1.1);
 }
