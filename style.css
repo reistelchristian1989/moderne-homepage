@@ -3,20 +3,25 @@ html {
 }
 
 nav {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 
     padding: 20px 50px;
 
     position: fixed;
-
     width: 100%;
 
     box-sizing: border-box;
+
+    background-image: url("assets/images/backgrounds/nav-background.JPG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 120px;
+
+    border: 1px solid red;
 }
 
 body {
@@ -31,6 +36,14 @@ body {
     color: white;
 
     font-family: Arial, sans-serif;
+
+    background-image: 
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("assets/images/backgrounds/hero-section-background.JPG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .hero {
@@ -152,7 +165,7 @@ button:hover {
 
     font-weight: bold;
 
-    color:rgb(27, 18, 80);
+    color:rgb(9, 146, 16);
 
     text-decoration: none;
 }
@@ -197,9 +210,11 @@ button:hover {
 
 .nav-links a {
 
-    color: white;
+    color: rgb(241, 9, 9);
 
-    text-decoration: none;
+    text-decoration: line;
+    font-size: 22px;
+    font-weight: 600;
 
     transition: 0.3s;
 }
@@ -207,10 +222,6 @@ button:hover {
 .nav-links a:hover {
 
     color: #3b82f6;
-}
-
-nav {
-    background-color: rgb(172, 240, 15);
 }
 
 .contact {
