@@ -1,130 +1,336 @@
 <!DOCTYPE html>
-
 <html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ERLAUBT ANDROID DAS LADEN ALLER STREAMING-M3U8 & BILDER -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: gap: content: blob:;">
+    
+    <title>Drachi & Schneggis WebTV & WebRADIO</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <!-- INTRO VIDEO OVERLAY -->
+    <div id="video-overlay">
+        <video id="intro-video" autoplay loop playsinline preload="auto">
+            <source src="assets/videos/intro_graph.mp4" type="video/mp4">
+            Dein Browser unterstützt kein Video.
+        </video>
+        
+        <!-- Ton aktivieren Button -->
+        <button id="unmute-btn">🔊 Ton einschalten</button>
 
+        <!-- Weiter Button -->
+        <button id="skip-btn" class="hidden">Weiter zur App</button>
+    </div>
 
-    <head>
+    <!-- MAIN APP CONTAINER -->
+    <div class="radio-container">
 
-        <meta charset="UTF-8">
+        <!-- 1. HOME SCREEN -->
+        <div id="home-screen" class="screen active">
+            <h1>Drachi&Schneggis WebTV&WebRadio v1.15 BETA</h1>
+            
+            <p id="welcome-text">Schön, dass du da bist! Wie heißt du?</p>
 
-        <meta name="viewport"
-            content="width=device-width, initial-scale=1.0">
+            <div class="name-section">
+                <input type="text" id="name-input" placeholder="Dein Name...">
+                <button onclick="saveName()">Name Speichern</button>
+            </div>
 
-        <title>Meine Moderne Homepage</title>
-
-        <link rel="stylesheet"
-            href="style.css">
-
-    </head>
-
-
-    <body>
-
-        <nav>
-            <a href="#home" class="logo">
-
-                <img src="assets/images/IMG_0198.JPG"
-                    alt="Drachen Logo"
-                    class="logo-icon">
-
-                <span>cr.dev.dragon</span>
-            </a>
-
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projekte">Projekte</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
-
-            </ul>
-
-        </nav>
-
-        <section id="home" class="hero">
-            <h1>Ich lerne Webentwicklung</h1>
-
-            <p>
-                Ich lerne Webentwicklung und dokumentiere hier meine Fortschritte.
-            </p>
-
-            <div class="hero-content">
-                <a href="video.html">
-
-                <img src="assets/images/IMG_0204.JPG"
-                alt="Mein Bild"
-                class="hero-image">
-
-            </a>
-
-            <button id="mehr-erfahren">
-                Mehr erfahren
-            </button>
-
+            <button onclick="changeScreen('station-screen')">"WebTV & WebRADIO einschalten"</button>
         </div>
-    </section>
 
-        <section id="about" class="about">
-            <h2>Über mich</h2>
+
+        <!-- 2. RADIO SCREEN -->
+        <div id="station-screen" class="screen">
+            <h1>||AUSWAHL RADIO-SENDER||</h1>
+
             
-            <p>
-                Hallo, ich bin Christian.
-                Ich lerne aktuell HTML, CSS und JavaScript
-                und entwickle meine erste eigene Website.
-            </p>
-        </section>
 
-        <section id="projekte" class="projects">
-            <h2>Meine Projekte</h2>
+            <div class="station-list">
+
+                <h2> #Music & NEWS </h2>
+
+                <button class="img-btn" onclick="selectStation('Radio Hannover', 'https://radio-hannover.divicon-stream.com/live/mp3-192/Homepage/')">
+                    <img src="assets/images/IMG_001.PNG" alt="Radio Hannover">
+                    <span class="station-name">Radio Hannover</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Radio 21-Hannover', 'https://radio21.streamabc.net/radio21-hannover-mp3-192-3735655')">
+                    <img src="assets/images/IMG_002.PNG" alt="Radio 21-Hannover">
+                    <span class="station-name">Radio 21-Hannover</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('LEIBNITZ.FM-Hannover', 'https://server3.streamserver-unlimited.de:10519/stream')">
+                    <img src="assets/images/IMG_009.PNG" alt="LEIBNITZ.FM-Hannover">
+                    <span class="station-name">LEIBNITZ.FM-Hannover</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Antenne Niedersachsen', 'https://stream.antenne.com/antenne-nds/mp3-192/stream.antenne.com/')">
+                    <img src="assets/images/IMG_003.PNG" alt="Antenne Niedersachsen">
+                    <span class="station-name">Antenne NDS</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('ffn-Hannover', 'https://ffn.stream41.radiohost.de/ffn_mp3-192')">
+                    <img src="assets/images/IMG_004.PNG" alt="ffn-Hannover">
+                    <span class="station-name">ffn-Hannover</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('NRJ-Energy Hamburg', 'https://frontend.streamonkey.net/energy-hamburg/stream/mp3')">
+                    <img src="assets/images/IMG_021.PNG" alt="NRJ-Energy Hamburg">
+                    <span class="station-name">NRJ-Energy HH</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Rockantenne Hamburg', 'https://mp3channels.webradio.de/rockantenne-hamburg')">
+                    <img src="assets/images/IMG_005.PNG" alt="Rockantenne Hamburg">
+                    <span class="station-name">Rockantenne HH</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Rockantenne Hamburg-PUNKROCK Channel', 'https://stream.rockantenne.de/punkrock/stream/mp3')">
+                    <img src="assets/images/IMG_017.PNG" alt="Rockantenne Hamburg-PUNKROCK Channel">
+                    <span class="station-name">Rockantenne HH-PUNKROCK Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Rockantenne Hamburg-HEAVY METAL Channel', 'https://stream.rockantenne.de/heavy-metal/stream/mp3')">
+                    <img src="assets/images/IMG_018.PNG" alt="Rockantenne Hamburg-HEAVY METAL Channel">
+                    <span class="station-name">Rockantenne HH-HEAVY METAL Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Rockantenne Hamburg-DEUTSCHROCK Channel', 'https://stream.rockantenne.de/deutschrock/stream/mp3')">
+                    <img src="assets/images/IMG_019.PNG" alt="Rockantenne Hamburg-DEUTSCHROCK Channel">
+                    <span class="station-name">Rockantenne HH-DEUTSCHROCK Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('NDR-1 NDS', 'https://icecast.ndr.de/ndr/ndr1niedersachsen/hannover/mp3/128/stream.mp3')">
+                    <img src="assets/images/IMG_010.PNG" alt="NDR-1 NDS">
+                    <span class="station-name">NDR-1 NDS</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('NDR-2 NDS', 'https://icecast.ndr.de/ndr/ndr2/niedersachsen/mp3/128/stream.mp3')">
+                    <img src="assets/images/IMG_011.PNG" alt="NDR-2 NDS">
+                    <span class="station-name">NDR-2 NDS</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('N-JOY', 'https://icecast.ndr.de/ndr/njoy/live/mp3/128/stream.mp3')">
+                    <img src="assets/images/IMG_012.PNG" alt="N-JOY">
+                    <span class="station-name">N-JOY</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('WDR-1LIVE', 'https://wdr-1live-live.icecast.wdr.de/wdr/1live/live/mp3/128/stream.mp3')">
+                    <img src="assets/images/IMG_020.PNG" alt="WDR-1LIVE">
+                    <span class="station-name">WDR-1LIVE</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RADIO BOB!', 'https://streams.radiobob.de/bob-national/mp3-192/mediaplayer')">
+                    <img src="assets/images/IMG_006.PNG" alt="RADIO BOB!">
+                    <span class="station-name">RADIO BOB!</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RADIO BOB!-WACKEN Channel', 'https://streams.radiobob.de/bob-wacken/mp3-192/mediaplayer')">
+                    <img src="assets/images/IMG_013.PNG" alt="RADIO BOB!-WACKEN Channel">
+                    <span class="station-name">RADIO BOB!-WACKEN Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RADIO BOB!-ROCK AM RING Channel', 'https://streams.radiobob.de/rockamring/mp3-192/mediaplayer')">
+                    <img src="assets/images/IMG_014.PNG" alt="RADIO BOB!-ROCK AM RING Channel">
+                    <span class="station-name">RADIO BOB!-ROCK AM RING Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RADIO BOB!-DEUTSCHROCK Channel', 'https://streams.radiobob.de/bob-deutsch/mp3-192/mediaplayer')">
+                    <img src="assets/images/IMG_015.PNG" alt="RADIO BOB!-DEUTSCHROCK Channel">
+                    <span class="station-name">RADIO BOB!-DEUTSCHROCK Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RADIO BOB!-MITTELALTER ROCK Channel', 'https://streams.radiobob.de/mittelalter/mp3-192/mediaplayer')">
+                    <img src="assets/images/IMG_016.PNG" alt="RADIO BOB!-MITTELALTER ROCK Channel">
+                    <span class="station-name">RADIO BOB!-MITTELALTER ROCK Channel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Radio Gong Nürnberg', 'https://webstream.gong971.de')">
+                    <img src="assets/images/IMG_007.PNG" alt="Radio Gong Nürnberg">
+                    <span class="station-name">Radio Gong Nürnberg</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('RTL-RADIO', 'https://stream.rtlradio.de/hits/mp3-128')">
+                    <img src="assets/images/IMG_022.PNG" alt="RTL-RADIO">
+                    <span class="station-name">RTL-RADIO</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Jam.FM-Berlin', 'https://stream.jam.fm/jamfm-nmr/mp3-128')">
+                    <img src="assets/images/IMG_023.PNG" alt="Jam.FM-Berlin">
+                    <span class="station-name">Jam.FM-Berlin</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('SUNSHINE-LIVE', 'https://stream.sunshine-live.de/live/mp3-128/stream.mp3')">
+                    <img src="assets/images/IMG_024.PNG" alt="SUNSHINE-LIVE">
+                    <span class="station-name">SUNSHINE-LIVE</span>
+                </button>
+
+                <h2> #24/7 HÖRSPIEL CHANNELS </h2>
+                <button class="img-btn" onclick="selectStation('Laut.FM Hörspiel', 'https://stream.laut.fm/hoerspiel')">
+                    <img src="assets/images/IMG_008.PNG" alt="Laut.FM Hörspiel">
+                    <span class="station-name">Laut.FM Hörspiel</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Laut.FM Hörspieltalk', 'https://stream.laut.fm/hoerspieltalk')">
+                    <img src="assets/images/IMG_025.PNG" alt="Laut.FM Hörspieltalk">
+                    <span class="station-name">Laut.FM Hörspieltalk</span>
+                </button>
+
+                <button class="img-btn" onclick="selectStation('Laut.FM Hörbuchzauber', 'https://stream.laut.fm/hoerbuchzauber')">
+                    <img src="assets/images/IMG_026.PNG" alt="Laut.FM Hörbuchzauber">
+                    <span class="station-name">Laut.FM Hörbuchzauber</span>
+                </button>
+
+            </div> <!-- Ende .station-list -->
+
+            <!-- Navigations-Buttons auf der Radio-Seite -->
+            <button onclick="changeScreen('tv-screen')" class="nav-btn">📺==>>Zu den TV-Sendern ==>></button>
+            <button onclick="changeScreen('home-screen')">&lt;<<==Zurück&lt;<<==</button>
+        </div>
+
+
+        <!-- 3. TV-SENDER SCREEN -->
+        <div id="tv-screen" class="screen">
+            <h1>||AUSWAHL TV-SENDER||</h1>
+
+            <div class="station-list">
+
+                <h2> #ÖFFENTLICH RECHTLICHES FERNSEHEN </h2>
+
+                <!-- ARD / Das Erste -->
+                <button class="img-btn" onclick="playTvStream('Das Erste (ARD)', 'https://daserste-live.ard-mcdn.de/daserste/live/hls/de/master.m3u8')">
+                    <img src="assets/images/IMG_001.PNG" alt="ARD">
+                    <span class="station-name">Das Erste (ARD)</span>
+                </button>
+
+                <!-- ZDF -->
+                <button class="img-btn" onclick="playTvStream('ZDF', 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/veryhigh/master.m3u8')">
+                    <img src="assets/images/IMG_002.PNG" alt="ZDF">
+                    <span class="station-name">ZDF</span>
+                </button>
+
+                <!-- NDR Fernsehen NDS -->
+                <button class="img-btn" onclick="playTvStream('NDR Fernsehen', 'https://mcdn.ndr.de/ndr/hls/ndr_fs/ndr_nds/master.m3u8')">
+                    <img src="assets/images/IMG_010.PNG" alt="NDR">
+                    <span class="station-name">NDR Fernsehen</span>
+                </button>
+
+                <!-- Tagesschau 24 -->
+                <button class="img-btn" onclick="playTvStream('Tagesschau 24', 'https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8')">
+                    <img src="assets/images/IMG_012.PNG" alt="Tagesschau 24">
+                    <span class="station-name">Tagesschau 24</span>
+                </button>
+
+                <!-- WDR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('WDR Fernsehen', 'https://wdrfs-geoblock.akamaized.net/hls/live/2020081/wdrfs/master.m3u8')">
+                    <img src="assets/images/IMG_020.PNG" alt="WDR">
+                    <span class="station-name">WDR Fernsehen</span>
+                </button>
+
+                <!-- 3sat -->
+                <button class="img-btn" onclick="playTvStream('3sat', 'https://zdf-hls-18.akamaized.net/hls/live/2016501/dach/veryhigh/master.m3u8')">
+                    <img src="assets/images/IMG_003.PNG" alt="3sat">
+                    <span class="station-name">3sat</span>
+                </button>
+
+                <!-- ARTE Deutschland -->
+                <button class="img-btn" onclick="playTvStream('ARTE', 'https://artesimulcast.akamaized.net/hls/live/2030993/artelive_de/index.m3u8')">
+                    <img src="assets/images/IMG_004.PNG" alt="ARTE">
+                    <span class="station-name">ARTE</span>
+                </button>
+
+                <!-- Phoenix -->
+                <button class="img-btn" onclick="playTvStream('Phoenix', 'https://zdf-hls-19.akamaized.net/hls/live/2016502/de/veryhigh/master.m3u8')">
+                    <img src="assets/images/IMG_005.PNG" alt="Phoenix">
+                    <span class="station-name">Phoenix</span>
+                </button>
+
+                <!-- KiKa -->
+                <button class="img-btn" onclick="playTvStream('KiKa', 'https://kikageohls.akamaized.net/hls/live/2022693/livetvkika_de/master.m3u8')">
+                    <img src="assets/images/IMG_006.PNG" alt="KiKa">
+                    <span class="station-name">KiKa</span>
+                </button>
+
+                <!-- ZDFneo -->
+                <button class="img-btn" onclick="playTvStream('ZDFneo', 'https://zdf-hls-16.akamaized.net/hls/live/2016499/de/high/master.m3u8')">
+                    <img src="assets/images/IMG_007.PNG" alt="ZDFneo">
+                    <span class="station-name">ZDFneo</span>
+                </button>
+
+                <!-- ONE HD -->
+                <button class="img-btn" onclick="playTvStream('ONE HD', 'https://mcdn-one.ard.de/ardone/hls/master.m3u8')">
+                    <img src="assets/images/IMG_007.PNG" alt="ONE HD">
+                    <span class="station-name">ONE HD</span>
+                </button>
+
+                <!-- ZDF_Info -->
+                <button class="img-btn" onclick="playTvStream('ZDF_Info', 'https://zdf-hls-17.akamaized.net/hls/live/2016500/de/veryhigh/master.m3u8')">
+                    <img src="assets/images/IMG_014.PNG" alt="ZDF_Info">
+                    <span class="station-name">ZDF_Info</span>
+                </button>
+
+                <!-- BR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('BR Fernsehen(Sued)', 'https://mcdn.br.de/br/fs/bfs_sued/hls/de/master.m3u8')">
+                    <img src="assets/images/IMG_008.PNG" alt="BR Fernsehen(Sued)">
+                    <span class="station-name">BR Fernsehen(Sued)</span>
+                </button>
+
+                <!-- SWR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('SWR Fernsehen', 'https://swrbwd-hls.akamaized.net/hls/live/2018672/swrbwd/master.m3u8')">
+                    <img src="assets/images/IMG_009.PNG" alt="SWR">
+                    <span class="station-name">SWR Fernsehen</span>
+                </button>
+
+                <!-- SR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('SR Fernsehen', 'https://srfs.akamaized.net/hls/live/689649/srfsgeo/index.m3u8')">
+                    <img src="assets/images/IMG_004.PNG" alt="SR Fernsehen">
+                    <span class="station-name">SR Fernsehen</span>
+                </button>
+
+                <!-- HR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('HR Fernsehen', 'https://hrhls.akamaized.net/hls/live/2024525-b/hrhls/master.m3u8')">
+                    <img src="assets/images/IMG_011.PNG" alt="HR">
+                    <span class="station-name">HR Fernsehen</span>
+                </button>
+
+                <!-- MDR Fernsehen -->
+                <button class="img-btn" onclick="playTvStream('MDR Fernsehen', 'https://mdr-live.ard-mcdn.de/mdr/live/hls/de/master.m3u8')">
+                    <img src="assets/images/IMG_013.PNG" alt="MDR">
+                    <span class="station-name">MDR Fernsehen</span>
+                </button>
+
+                <!-- Rundfunk Berlin-Brandenburg -->
+                <button class="img-btn" onclick="playTvStream('RBB (Brandenburg)', 'https://rbb-hls-brandenburg.akamaized.net/hls/live/2017825/rbb_brandenburg/master.m3u8')">
+                    <img src="assets/images/IMG_015.PNG" alt="RBB (Brandenburg)">
+                    <span class="station-name">RBB (Brandenburg)</span>
+                </button>
+
             
-            <div class="project-card">
-                
-                <h3>Moderne Homepage</h3>
-                
-                <p>Mein erstes Webentwicklungsprojekt mit HTML, CSS und javaScript..</p>
 
-                <a href="https://reistelchristian1989.github.io/moderne-homepage"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                
-                    Website ansehen
-                
-                </a>
+            </div> <!-- Ende .station-list -->
 
-                <br><br>
+            <!-- <<==Zurück zur Radio-Auswahl<<== -->
+            <button onclick="changeScreen('station-screen')"><<==Zurück zu den Radiosendern<<==</button>
+        </div>
 
-                <a href="https://github.com/reistelchristian1989/moderne-homepage"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                
-                    Quellcode auf Github
 
-                </a>
+        <!-- 4. PLAYER SCREEN -->
+        <div id="player-screen" class="screen">
+            <h1 id="tv-title">TV Stream</h1>
 
+            <div class="video-container">
+                <video id="tv-player" controls autoplay playsinline></video>
             </div>
 
-        </section>
+            <!-- Zurück zur TV-Auswahl -->
+            <button onclick="stopTvStream(); changeScreen('tv-screen');"><<==Zurück zur TV-Auswahl<<==</button>
+        </div>
 
-        <section id="kontakt" class="contact">
-            <h2>Kontakt</h2>
-            
-            <div class="contact-card">
-                <a href="mailto:reistelchristian1989@gmail.com">
-                    Private Email
-                </a>
-                <a href="mailto:crdevdragon@gmail.com">
-                    Business Email
-                </a>
-                <a href="https://github.com/reistelchristian1989"
-                    target="_blank"
-                    rel="noopener noreferrer">
+    </div> <!-- Ende .radio-container -->
 
-                    Github Profil
-
-                </a>
-            </div>
-        </section>
-
-        <script src="script.js"></script>
-
-    </body>
-
+    <script src="script.js"></script>
+</body>
 </html>
