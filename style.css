@@ -269,6 +269,18 @@ button:hover {
     padding: 40px 20px;
 
     border-radius: 25px;
+
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 0 20px #3ef311,
+        0 0 40px #3ef311;
 }
 
 .contact-card a {
@@ -289,7 +301,13 @@ button:hover {
 .contact-card a:hover {
     background-color: #3ef311;
 
+    color: #000;
+
     transform: scale(1.05);
+
+    box-shadow:
+        0 0 15px #3ef311,
+        0 0 30px #3ef311;
 }
 
 .about,
