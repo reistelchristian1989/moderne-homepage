@@ -28,6 +28,7 @@ nav {
     background-repeat: no-repeat;
 
     min-height: 120px;
+    z-index: 1000; /* Stellt sicher, dass die Nav oben bleibt */
 
     border: 1px solid red;
 }
@@ -55,8 +56,9 @@ body {
 }
 
 .hero {
-
-    height: 100vh;
+    /* min-height verhindert, dass Inhalte in Safari oben/unten überlappen */
+    min-height: 100vh;
+    box-sizing: border-box;
 
     display: flex;
 
@@ -68,16 +70,15 @@ body {
 
     text-align: center;
 
-    padding: 50px;
+    padding: 50px 20px;
 
-    padding-top: 120px;
+    padding-top: 140px; /* Leicht erhöht für genügend Abstand zur Navbar */
 }
 
 .hero h1 {
-
-    font-size: 54px;
-
-    margin-bottom: 30px;
+    font-size: 42px; /* Etwas angepasst für bessere Skalierung auf mobilen Geräten */
+    margin-bottom: 20px;
+    word-wrap: break-word; /* Verhindert das Überlappen bei sehr langen Wörtern */
 }
 
 .hero p {
@@ -116,10 +117,8 @@ button:hover {
 }
 
 .hero-image {
-
-    width: 350px;
-
-    height: 275px;
+    width: 300px;
+    height: 300px; /* Quadratisch gemacht für perfekten Kreis */
 
     object-fit: cover;
 
@@ -132,6 +131,8 @@ button:hover {
     transition: 0.3s;
 
     box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+    
+    flex-shrink: 0; /* Verhindert Verzerrungen in Mozilla & Safari */
 }
 
 .hero-image:hover {
@@ -185,6 +186,8 @@ button:hover {
     height: 70px;
 
     border-radius: 50%;
+    
+    flex-shrink: 0;
 }
 
 .logo:hover {
@@ -214,6 +217,14 @@ button:hover {
         padding: 0;
     }
 
+    .hero h1 {
+        font-size: 32px; /* Kleinere Überschrift auf Handys */
+    }
+
+    .hero-image {
+        width: 220px;
+        height: 220px;
+    }
 }
 
 .nav-links a {
