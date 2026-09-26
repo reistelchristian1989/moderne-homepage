@@ -42,7 +42,11 @@ nav {
     min-height: 100px;
     z-index: 1000;
 
+<<<<<<< HEAD
     border-bottom: 1px solid rgb(229, 255, 0);
+=======
+    border-bottom: 1px solid red;
+>>>>>>> a20df97bfcae7a6e97e95bb9eb6774807c3e42ab
 }
 
 body {
@@ -54,7 +58,11 @@ body {
 
     margin: 0;
 
+<<<<<<< HEAD
     color: rgba(154, 249, 21, 0.802);
+=======
+    color: blue;
+>>>>>>> a20df97bfcae7a6e97e95bb9eb6774807c3e42ab
 
     font-family: Arial, sans-serif;
 
@@ -178,7 +186,11 @@ button:hover {
 
     font-weight: bold;
 
+<<<<<<< HEAD
     color: rgb(224, 0, 0);
+=======
+    color: rgb(9, 146, 16);
+>>>>>>> a20df97bfcae7a6e97e95bb9eb6774807c3e42ab
 
     text-decoration: none;
 }
@@ -227,10 +239,17 @@ button:hover {
 }
 
 .nav-links a {
+<<<<<<< HEAD
     color: rgb(191, 0, 0);
 
     text-decoration: line;
     font-size: 36px;
+=======
+    color: rgb(241, 9, 9);
+
+    text-decoration: none;
+    font-size: 20px;
+>>>>>>> a20df97bfcae7a6e97e95bb9eb6774807c3e42ab
     font-weight: 600;
 
     transition: 0.3s;
