@@ -1,3 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* Verhindert horizontales Überlaufen/Scrollen auf der gesamten Seite */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Gepinselter Graffiti-Stil für alle Überschriften */
+h1, h2, h3 {
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -7,21 +27,22 @@ nav {
     justify-content: space-between;
     align-items: center;
 
-    padding: 20px 50px;
+    padding: 15px 30px;
 
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-
-    box-sizing: border-box;
 
     background-image: url("assets/images/backgrounds/nav-background.JPG");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    min-height: 120px;
+    min-height: 100px;
+    z-index: 1000;
 
-    border: 1px solid red;
+    border-bottom: 1px solid rgb(229, 255, 0);
 }
 
 body {
@@ -33,7 +54,7 @@ body {
 
     margin: 0;
 
-    color: white;
+    color: rgba(154, 249, 21, 0.802);
 
     font-family: Arial, sans-serif;
 
@@ -47,8 +68,8 @@ body {
 }
 
 .hero {
-
-    height: 100vh;
+    min-height: 100vh;
+    width: 100%;
 
     display: flex;
 
@@ -60,29 +81,24 @@ body {
 
     text-align: center;
 
-    padding: 50px;
-
-    padding-top: 120px;
+    padding: 130px 20px 50px 20px;
 }
 
 .hero h1 {
-
-    font-size: 54px;
-
-    margin-bottom: 30px;
+    font-size: clamp(24px, 4.5vw, 42px);
+    margin-bottom: 20px;
+    max-width: 90%;
+    word-break: break-word;
 }
 
 .hero p {
-
-    font-size: 22px;
-
+    font-size: clamp(16px, 2.5vw, 22px);
     color: #cbd5e1;
-
     margin-bottom: 30px;
+    max-width: 850px;
 }
 
 button {
-
     background-color: #e70e0e;
 
     color: white;
@@ -101,17 +117,16 @@ button {
 }
 
 button:hover {
-
     background-color: #2563eb;
 
     transform: scale(1.15);
 }
 
 .hero-image {
-
-    width: 350px;
-
-    height: 275px;
+    width: 250px;
+    height: 250px;
+    max-width: 75vw;
+    max-height: 75vw;
 
     object-fit: cover;
 
@@ -124,11 +139,12 @@ button:hover {
     transition: 0.3s;
 
     box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+    
+    flex-shrink: 0;
 }
 
 .hero-image:hover {
-
-    transform: scale(1.15);
+    transform: scale(1.1);
 
     box-shadow:
         0 0 20px #3b82f6,
@@ -136,14 +152,12 @@ button:hover {
 }
 
 .hero button {
-
     display: block;
 
     margin: 0 auto;
 }
 
 .hero-content {
-
     display: flex;
 
     flex-direction: column;
@@ -154,51 +168,52 @@ button:hover {
 }
 
 .logo {
-
     display: flex;
 
     align-items: center;
 
     gap: 12px;
 
-    font-size: 48px;
+    font-size: clamp(26px, 5vw, 48px);
 
     font-weight: bold;
 
-    color:rgb(9, 146, 16);
+    color: rgb(224, 0, 0);
 
     text-decoration: none;
 }
 
 .logo-icon {
+    width: 60px;
 
-    width: 70px;
-
-    height: 70px;
+    height: 60px;
 
     border-radius: 50%;
+    
+    flex-shrink: 0;
 }
 
 .logo:hover {
-
     transform: scale(1.05);
 
     transition: 0.3s;
 }
 
 .nav-links {
-
     display: flex;
 
     list-style: none;
 
-    gap: 64px;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
 }
 
 @media (max-width: 768px) {
-
     nav {
         flex-direction: column;
+        padding: 15px;
+        gap: 10px;
     }
 
     .nav-links {
@@ -206,40 +221,38 @@ button:hover {
         padding: 0;
     }
 
+    .hero {
+        padding-top: 170px;
+    }
 }
 
 .nav-links a {
-
-    color: rgb(241, 9, 9);
+    color: rgb(191, 0, 0);
 
     text-decoration: line;
-    font-size: 22px;
+    font-size: 36px;
     font-weight: 600;
 
     transition: 0.3s;
 }
 
 .nav-links a:hover {
-
     color: #3b82f6;
 }
 
 .contact {
-
-    padding: 100px 20px;
+    padding: 80px 20px;
 
     text-align: center;
 }
 
 .contact h2 {
-
     font-size: 40px;
 
     margin-bottom: 40px;
 }
 
 .contact-card {
-
     display: flex;
 
     flex-direction: column;
@@ -247,61 +260,85 @@ button:hover {
     gap: 20px;
 
     max-width: 400px;
+    width: 100%;
 
     margin: auto;
 
     background-color: #4f8f07;
 
-    padding: 40px;
+    padding: 40px 20px;
 
     border-radius: 25px;
+
+    box-shadow: 0px 5px 20px rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 0 20px #3ef311,
+        0 0 40px #3ef311;
 }
 
 .contact-card a {
-
     text-decoration: none;
 
     color: white;
 
     background-color: #358610;
 
-    padding: 5px;
+    padding: 10px;
 
     border-radius: 30px;
 
     transition: 0.3s;
+    word-break: break-all;
 }
 
 .contact-card a:hover {
-
     background-color: #3ef311;
 
-    transform: scale(1.50);
+    color: #000;
+
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 15px #3ef311,
+        0 0 30px #3ef311;
 }
 
 .about,
 .projects {
-
-    padding: 100px 20px;
+    padding: 80px 20px;
 
     text-align: center;
 }
 
+.about p {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #e2e8f0;
+}
+
 .about h2,
 .projects h2 {
-
     font-size: 40px;
 
     margin-bottom: 30px;
 }
 
 .project-card {
-
-    max-width: 500px;
+    max-width: 550px;
+    width: 100%;
 
     margin: auto;
 
-    padding: 30px;
+    padding: 30px 20px;
 
     border-radius: 20px;
 
@@ -313,8 +350,7 @@ button:hover {
 }
 
 .project-card:hover {
-
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 
     box-shadow:
         0 0 20px #3ef311,
@@ -322,7 +358,6 @@ button:hover {
 }
 
 .project-card a {
-
     display: inline-block;
 
     margin-top: 10px;
@@ -338,17 +373,17 @@ button:hover {
     border-radius: 10px;
 
     transition: 0.3s;
+    max-width: 100%;
+    word-break: break-word;
 }
 
 .project-card a:hover {
-
     transform: scale(1.05);
 
     background-color: #2563eb;
 }
 
 .back-button {
-
     display: inline-block;
 
     margin-top: 30px;
@@ -367,12 +402,10 @@ button:hover {
 }
 
 .back-button:hover {
-
     transform: scale(1.1);
 }
 
 @keyframes float {
-
     0% {
         transform: translateY(0px);
     }
@@ -384,10 +417,8 @@ button:hover {
     100% {
         transform: translateY(0px);
     }
-
 }
 
 .logo-icon {
-
     animation: float 3s ease-in-out infinite;
 }
